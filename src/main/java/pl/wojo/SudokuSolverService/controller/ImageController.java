@@ -21,15 +21,15 @@ public class ImageController {
 	@GetMapping("/echo/{text}")
 	public ResponseEntity<String> echo(@PathVariable String text) {
 		log.info("echo - start {}", text);
-		return ResponseEntity.ok("{\"result\": \"AAA " + text + " date " + new Date() + "\"}");
+		return ResponseEntity.ok("{\"result\": \"echo " + text + " date " + new Date() + "\"}");
 	}
 
 	@RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
-	public String uploadImg(@RequestBody Image image) {
+	public ResponseEntity<String> uploadImg(@RequestBody Image image) {
 		log.info("/POST request with " + image.toString());
-		String path = "/home/pszczola/tmp/" + image.getName();
+		String path = "/home/pszczola/PG/tmp/test.png";
 		Base64Coder.decoder(image.getData(), path);
-		return "finisched: " + new Date();
+		return ResponseEntity.ok("{\"result\": \"finished date " + new Date() + "\"}");
 	}
 
 	@RequestMapping(value = "/downloadImg", method = RequestMethod.GET)
