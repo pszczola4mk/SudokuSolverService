@@ -1,6 +1,7 @@
 package pl.wojo.SudokuSolverService.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.wojo.SudokuSolverService.business.Base64Coder;
 import pl.wojo.SudokuSolverService.model.Image;
+import pl.wojo.SudokuSolverService.prashant.sudoku.solver.SudokuSolver;
 
 @Slf4j
 @RestController
@@ -27,8 +29,10 @@ public class ImageController {
 	@RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
 	public ResponseEntity<String> uploadImg(@RequestBody Image image) {
 		log.info("/POST request with " + image.toString());
-		String path = "/home/pszczola/PG/tmp/test.png";
-		Base64Coder.decoder(image.getData(), path);
+		String path = "/home/pszczola/PG/tmp/img.png";
+		//Base64Coder.decoder(image.getData(), path);
+		byte[] bytes = Base64Coder.readFile(path);
+		Map<String, String> sudoku = SudokuSolver.getInstance().solveImage(bytes);
 		return ResponseEntity.ok("{\"result\": \"finished date " + new Date() + "\"}");
 	}
 
