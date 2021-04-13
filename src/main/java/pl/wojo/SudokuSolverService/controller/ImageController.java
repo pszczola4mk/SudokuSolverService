@@ -32,7 +32,7 @@ public class ImageController {
 		String path = "/home/pszczola/PG/tmp/img.png";
 		//Base64Coder.decoder(image.getData(), path);
 		byte[] bytes = Base64Coder.readFile(path);
-		Map<String, String> sudoku = SudokuSolver.getInstance().solveImage(bytes);
+		int[][] sudoku = SudokuSolver.getInstance().solveImage(bytes);
 		return ResponseEntity.ok("{\"result\": \"finished date " + new Date() + "\"}");
 	}
 

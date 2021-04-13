@@ -27,12 +27,13 @@ public class Base64Coder {
 		}
 		return null;
 	}
-
 	public static byte[] readFile(String imagePath) {
 		File file = new File(imagePath);
+		return readFile(file);
+	}
+
+	public static byte[] readFile(File file) {
 		try (FileInputStream imageInFile = new FileInputStream(file)) {
-			// Reading a Image file from file system
-			String base64Image = "";
 			byte[] imageData = new byte[(int) file.length()];
 			imageInFile.read(imageData);
 			return imageData;

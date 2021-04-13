@@ -34,7 +34,7 @@ public class Classifier {
         data.put(0, new int[25][25]);
         for (int i = 1; i <= 9; i++) {
             for (int j = 1; j <= 4; j++) {
-                byte[] bytes = FileUtils.readFileToByteArray(new File("resources/training_data/" + i + "_" + j + ".png"));
+                byte[] bytes = FileUtils.readFileToByteArray(new File("src/test/resources/training_data/" + i + "_" + j + ".png"));
                 Mat s = Imgcodecs.imdecode(new MatOfByte(bytes), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
                 if (s.size().height != 25 || s.size().width != 25) { throw new Exception("Need a 25x25 image for training.."); }
                 int[][] _data = new int[25][25];

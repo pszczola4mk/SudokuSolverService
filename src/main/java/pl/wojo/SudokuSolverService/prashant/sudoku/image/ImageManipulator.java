@@ -131,7 +131,7 @@ public class ImageManipulator {
         BufferedImage image = new BufferedImage(m.cols(), m.rows(), type);
         final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(b, 0, targetPixels, 0, b.length);
-        File f = new File("resources/img-" + s + ".png");
+        File f = new File("src/test/resources/img-" + s + ".png");
         try {
             ImageIO.write(image, "PNG", f);
         } catch (IOException e) {
@@ -143,7 +143,7 @@ public class ImageManipulator {
      * Takes a file, loads it, applies adaptive thresholding, inverts the color and returns the Mat image
      */
     private static Mat loadAndPreprocess(byte[] file) {
-        Mat s = Imgcodecs.imdecode(new MatOfByte(file), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
+        Mat s = Imgcodecs.imdecode(new MatOfByte(file), Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
         Mat outerBox = new Mat(s.size(), CV_8UC1);
 
         int blockSize = (int) (s.size().height * 0.05d);

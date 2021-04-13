@@ -1,9 +1,5 @@
 package pl.wojo.SudokuSolverService.prashant.sudoku.solver;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import pl.wojo.SudokuSolverService.prashant.sudoku.image.ImageManipulator;
 
@@ -19,28 +15,21 @@ public class SudokuSolver {
         return instance;
     }
 
-    public Map<String, String> solveImage(byte[] file) {
-        try {
-            long startTime = System.currentTimeMillis();
-            Sudoku sudoku = ImageManipulator.convertToSudoku(file, false);
-            if (sudoku == null) {
-                log.info("Sorry, we could not identify the Sudoku puzzle from the given image..");
-                return null;
-            }
-            SolveRoutines.display_grid_from_object(sudoku);
-
-            HashMap<String, String> values = SolveRoutines.loadSudoku(sudoku);
-            if (values == null) {
-                log.info("Sorry, looks like this puzzle can not be solved..");
-                return null;
-            }
-            SolveRoutines.display_values(SolveRoutines.search(values));
-            log.info("\nTime taken to solve (ms) : {}\n", (System.currentTimeMillis() - startTime));
-            return values;
-        } catch (IOException e) {
-            log.error(e.toString());
+    public int[][] solveImage(byte[] file) {
+        long startTime = System.currentTimeMillis();
+        Sudoku sudoku = ImageManipulator.convertToSudoku(file, false);
+        if (sudoku == null) {
+            log.info("Sorry, we could not identify the Sudoku puzzle from the given image..");
             return null;
         }
+        int[][] values = sudoku.getData();
+        SudokuSolverAlgorithm.getInstance().solveSudoku(values);
+        if (values == null) {
+            log.info("Sorry, looks like this puzzle can not be solved..");
+            return null;
+        }
+        log.info("\nTime taken to solve (ms) : {}\n", (System.currentTimeMillis() - startTime));
+        return values;
 
     }
 
