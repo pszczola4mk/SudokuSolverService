@@ -21,14 +21,13 @@ public class SudokuSolverAlgorithm {
 	public void solveSudoku(int[][] board) {
 		int res = solveSudoku(board, 0, 0);
 		if (res == 1) {
-			log.info("Jest rozwiązanie");
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
 					board[i][j] = this.result[i][j];
 				}
 			}
 		} else {
-			log.warn("Brak rozwiązania");
+			log.warn("No valid solution");
 		}
 	}
 

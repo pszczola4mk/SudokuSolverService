@@ -18,8 +18,6 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pl.wojo.SudokuSolverService.prashant.sudoku.solver.Sudoku;
 
 import static org.opencv.core.CvType.CV_8UC1;
@@ -34,15 +32,12 @@ import static org.opencv.imgproc.Imgproc.threshold;
 @Slf4j
 public class ImageManipulator {
 
-
     static {
         nu.pattern.OpenCV.loadShared();
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    /**
-     * Takes an image file and creates a Sudoku object
-     */
+
     public static Sudoku convertToSudoku(byte[] file, boolean writeCells) {
         Sudoku _sudoku = null;
         try {

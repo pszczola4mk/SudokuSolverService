@@ -1,20 +1,21 @@
 package pl.wojo.SudokuSolverService.prashant.sudoku.solver;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by prashant on 29/8/16.
- */
+@Slf4j
 public class Sudoku {
-
-    Logger logger = LoggerFactory.getLogger(Sudoku.class);
 
     private int[][] data;
 
+    public Sudoku() {}
+
+    public Sudoku(int[][] data) {
+        setData(data);
+    }
+
     public void setData(int[][] data) {
-        if (data.length!=9 || data[0].length!=9) {
-            logger.debug("Not a valid sudoku (9x9). Returning..");
+        if (data.length != 9 || data[0].length != 9) {
+            log.debug("Not a valid sudoku (9x9). Returning..");
             return;
         }
         this.data = data;
@@ -24,8 +25,18 @@ public class Sudoku {
         return data;
     }
 
-    public void display() {
-
+    public String getDataAsString() {
+        if (data == null) {
+            return "Empty sudoku";
+        }
+        String result = "|";
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                //board[i][j] = this.result[i][j];
+                result = result + this.data[i][j] + "|";
+            }
+            result = result + ";";
+        }
+        return result;
     }
-
 }

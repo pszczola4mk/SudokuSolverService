@@ -24,9 +24,6 @@ public class Classifier {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    /**
-     * Load the training data for nearest neighbor comparision
-     */
     private static void loadData() throws Exception {
 
         data = new HashMap<>();
