@@ -31,7 +31,7 @@ public class SudokuSolver {
             log.info("Sorry, looks like this puzzle can not be solved..");
             return null;
         }
-        log.info("\nTime taken to solve (ms) : {}\n", (System.currentTimeMillis() - startTime));
+        log.info("Time taken to solve (ms) : {}", (System.currentTimeMillis() - startTime));
         return values;
 
     }
