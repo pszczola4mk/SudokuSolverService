@@ -31,6 +31,7 @@ public class ImageController {
 	public ResponseEntity<String> uploadImg(@RequestBody Image image) {
 		log.info("/POST request with " + image.getName());
 		byte[] bytes = Base64.getDecoder().decode(image.getData());
+		log.info("Got bytes");
 		int[][] sudoku = SudokuSolver.getInstance().solveImage(bytes);
 		String result = new Sudoku(sudoku).getDataAsString();
 		log.info("Solved sudoku: " + result);

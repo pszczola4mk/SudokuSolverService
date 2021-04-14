@@ -17,12 +17,15 @@ public class SudokuSolver {
 
     public int[][] solveImage(byte[] file) {
         long startTime = System.currentTimeMillis();
+        log.info("Starting conversion");
         Sudoku sudoku = ImageManipulator.convertToSudoku(file, false);
         if (sudoku == null) {
             log.info("Sorry, we could not identify the Sudoku puzzle from the given image..");
             return null;
         }
+        log.info("Got sudoku");
         int[][] values = sudoku.getData();
+        log.info("Start resolving");
         SudokuSolverAlgorithm.getInstance().solveSudoku(values);
         if (values == null) {
             log.info("Sorry, looks like this puzzle can not be solved..");
