@@ -37,4 +37,24 @@ public class ImageController {
 		log.info("Solved sudoku: " + result);
 		return ResponseEntity.ok("{\"result\": \"" + result + "\"}");
 	}
+
+	@RequestMapping(value = "/resolve", method = RequestMethod.POST)
+	public ResponseEntity<String> resolveSudoku(@RequestBody Image image) {
+		log.info("/POST request with " + image.getName());
+		byte[] bytes = Base64.getDecoder().decode(image.getData());
+		log.info("Got bytes");
+		int[][] sudoku = SudokuSolver.getInstance().solveImage(bytes);
+		String result = new Sudoku(sudoku).getDataAsString();
+		log.info("Solved sudoku: " + result);
+		return ResponseEntity.ok(result);
+	}
+
+	@RequestMapping(value = "/resolveText", method = RequestMethod.POST)
+	public ResponseEntity<String> resolveTextSudoku(@RequestBody String sudoku) {
+		log.info("/POST request with " + sudoku);
+		int[][] resolved = SudokuSolver.getInstance().solveText(sudoku);
+		String result = new Sudoku(resolved).getDataAsString();
+		log.info("Solved sudoku: " + result);
+		return ResponseEntity.ok(result);
+	}
 }

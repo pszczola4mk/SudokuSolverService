@@ -1,6 +1,7 @@
 package pl.wojo.SudokuSolverService.prashant.sudoku.solver;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import pl.wojo.SudokuSolverService.prashant.sudoku.image.ImageManipulator;
 
 @Slf4j
@@ -33,7 +34,25 @@ public class SudokuSolver {
         }
         log.info("Time taken to solve (ms) : {}", (System.currentTimeMillis() - startTime));
         return values;
+    }
 
+    public int[][] solveText(String text) {
+        int[][] data = new int[9][9];
+        String[] rows = text.split(";");
+        int i = 0;
+        for (String row : rows) {
+            String[] cols = row.split("\\|");
+            int j = 0;
+            for (String col : cols) {
+                if (StringUtils.isNotBlank(col)) {
+                    data[i][j] = Integer.parseInt(col);
+                }
+                j = j + 1;
+            }
+            i = i + 1;
+        }
+        SudokuSolverAlgorithm.getInstance().solveSudoku(data);
+        return data;
     }
 
 
